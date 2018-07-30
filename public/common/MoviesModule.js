@@ -1,7 +1,7 @@
 'use strict';
 
 
-var MoviesModule = (function() {
+var MoviesModule = (function () {
     var moviesStub = [
         {
             title: "aaa",
@@ -32,9 +32,46 @@ var MoviesModule = (function() {
             mark: 8
         },
     ];
-    
+
+    function displayMovies() {
+        for (var i = 0; i<moviesStub.length; i++) {
+            var currentMovie = moviesStub[i];
+            var row = document.createElement("tr");
+            var titleTd = document.createElement("td");
+            var imgTd = document.createElement("td");
+            var genreTd = document.createElement("td");
+            var yearTd = document.createElement("td");
+            var markTd = document.createElement("td");
+            var movieImg = document.createElement("img");
+            var buttonDetails = document.createElement("button");
+            var buttonDelete = document.createElement("button");
+            
+            titleTd.innerText = currentMovie.title;
+            movieImg.src = currentMovie.imgSrc;
+            genreTd.innerText = currentMovie.genre;
+            yearTd.innerText = currentMovie.year;
+            markTd.innerText = currentMovie.mark;
+            buttonDetails.innerText = "Details";
+            buttonDelete.innerText = "Delete";
+            
+            imgTd.appendChild(movieImg);
+            row.appendChild(titleTd);
+            row.appendChild(imgTd);
+            row.appendChild(genreTd);
+            row.appendChild(yearTd);
+            row.appendChild(markTd);
+            row.appendChild(buttonDetails);
+            row.appendChild(buttonDelete);
+            
+            var tbody = document.querySelector("#movies-table-body");
+            tbody.appendChild(row);
+            
+        }
+
+    }
+
     return {
-        moviesStub: moviesStub
+        displayMovies: displayMovies
     }
 
 })()

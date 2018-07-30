@@ -1,2 +1,2 @@
 'use strict';
-console.log(MoviesModule.moviesStub);
+MoviesModule.displayMovies();
