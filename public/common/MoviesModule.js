@@ -33,11 +33,26 @@ var MoviesModule = (function () {
         },
     ];
 
+    function deleteMovie(id) {
+        var moviesInJSON = localStorage.getItem("movies");
+        var moviesInJS = JSON.parse(moviesInJSON);
+        var filteredMovies = moviesInJS.filter(function(elem){
+            if (Number(elem.id) === Number(id)) {
+                return false;
+            } else {
+                return true;
+            }
+        })
+        var filteredMoviesInJSON = JSON.stringify(filteredMovies);
+        localStorage.setItem("movies", filteredMoviesInJSON);
+    }
+    
+    
     function displayMovies() {
         var tbody = document.querySelector("#movies-table-body");
         var moviesInJSON = localStorage.getItem("movies");
         var moviesInJS = JSON.parse(moviesInJSON);
-        
+        tbody.innerHTML = "";
         for (var i = 0; i < moviesInJS.length; i++) {
             var currentMovie = moviesInJS[i];
             var row = document.createElement("tr");
@@ -57,6 +72,9 @@ var MoviesModule = (function () {
             markTd.innerText = currentMovie.mark;
             buttonDetails.innerText = "Details";
             buttonDelete.innerText = "Delete";
+            buttonDelete.id = currentMovie.id;
+            buttonDelete.classList.add("delete-btn");
+            
 
             imgTd.appendChild(movieImg);
             row.appendChild(titleTd);
@@ -75,7 +93,8 @@ var MoviesModule = (function () {
     }
 
     return {
-        displayMovies: displayMovies
+        displayMovies: displayMovies, 
+        deleteMovie: deleteMovie
     }
 
 })()
